@@ -186,31 +186,31 @@ namespace To_do_list_system
             }
         }
 
-        public void inputCheckerCreateDeleteList(string purpose, string username, string list, string[] lists)
-        {
+        //public void inputCheckerCreateDeleteList(string purpose, string username, string list, string[] lists)
+        //{
 
-                    if (purpose.ToUpper() == "DELETE")
-                    {
-                        file_handler.DelteFile(listDirectory, username, list, lists);
-                    }
+        //            if (purpose.ToUpper() == "DELETE")
+        //            {
+        //                file_handler.DelteFile(listDirectory, username, list, lists);
+        //            }
 
-                    if (purpose.ToUpper() == "CREATE")
-                    {
-                        bool existing = ifDuplicating(listDirectory);
-                        if (!existing)
-                        {   
-                            file_handler.WriteToFile(listDirectory, "");
-                            Console.WriteLine("\n> success.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("\nStatus: A title list is already taken...");
-                            Console.ReadLine();
-                            Console.WriteLine("\nGoing back to the main menu...");
-                        }    
-                    }
-                    Console.Clear();
-        }
+        //            if (purpose.ToUpper() == "CREATE")
+        //            {
+        //                bool existing = ifDuplicating(listDirectory);
+        //                if (!existing)
+        //                {   
+        //                    file_handler.WriteToFile(listDirectory, "");
+        //                    Console.WriteLine("\n> success.");
+        //                }
+        //                else
+        //                {
+        //                    Console.WriteLine("\nStatus: A title list is already taken...");
+        //                    Console.ReadLine();
+        //                    Console.WriteLine("\nGoing back to the main menu...");
+        //                }    
+        //            }
+        //            Console.Clear();
+        //}
 
         public void CreateList()
         {
@@ -224,125 +224,87 @@ namespace To_do_list_system
             Console.ReadKey();
         }
 
-        public void DeleteList(string username)
-        {
-            bool loop = true;
-            string[] pathLists = Directory.GetFiles("./account_list/" + username + "/lists");
-            List<string> xList = new List<string>();
+        //public void DeleteList(string username)
+        //{
+        //    bool loop = true;
+        //    string[] pathLists = Directory.GetFiles("./account_list/" + username + "/lists");
+        //    List<string> xList = new List<string>();
 
-            foreach(var path in pathLists)
-            {
-                xList.Add(Path.GetFileName(path));
-            }
+        //    foreach(var path in pathLists)
+        //    {
+        //        xList.Add(Path.GetFileName(path));
+        //    }
 
-            string[] lists = new string[xList.Count];
-            int x = 0;
-            foreach(var y in xList)
-            {
-                lists[x] = xList[x].Substring(0, xList[x].Length - 4);
-                x++;
-            }
+        //    string[] lists = new string[xList.Count];
+        //    int x = 0;
+        //    foreach(var y in xList)
+        //    {
+        //        lists[x] = xList[x].Substring(0, xList[x].Length - 4);
+        //        x++;
+        //    }
 
-            while (loop)
-            {
-                int item = ValidateChoice.GetNumber(lists.Length, "Delete List", lists);
+        //    while (loop)
+        //    {
+        //        int item = ValidateChoice.GetNumber(lists.Length, "Delete List", lists);
 
-                for(int i = 0; i < lists.Length; i++)
-                {
-                    if(item == i+1)
-                    {
-                        file_handler.DelteFile(listDirectory, username, lists[i], lists);
-                        loop = false;
-                        break;
-                    }
-                }
+        //        for(int i = 0; i < lists.Length; i++)
+        //        {
+        //            if(item == i+1)
+        //            {
+        //                file_handler.DelteFile(listDirectory, username, lists[i], lists);
+        //                loop = false;
+        //                break;
+        //            }
+        //        }
 
-                if (loop)
-                {
-                    Console.WriteLine("> Item does not exist!");
-                    Console.ReadKey();
-                }
-            }
-        }
+        //        if (loop)
+        //        {
+        //            Console.WriteLine("> Item does not exist!");
+        //            Console.ReadKey();
+        //        }
+        //    }
+        //}
         
-        public void DeleteItemFromList(string username)
-        {
-            bool loop = true;
-            string[] pathLists = Directory.GetFiles("./account_list/" + username + "/lists");
-            List<string> xList = new List<string>();
+        //public void DeleteItemFromList(string username)
+        //{
+        //    bool loop = true;
+        //    string[] pathLists = Directory.GetFiles("./account_list/" + username + "/lists");
+        //    List<string> xList = new List<string>();
 
-            foreach (var path in pathLists)
-            {
-                xList.Add(Path.GetFileName(path));
-            }
+        //    foreach (var path in pathLists)
+        //    {
+        //        xList.Add(Path.GetFileName(path));
+        //    }
 
-            string[] lists = new string[xList.Count];
-            int x = 0;
-            foreach (var y in xList)
-            {
-                lists[x] = xList[x].Substring(0, xList[x].Length - 4);
-                x++;
-            }
+        //    string[] lists = new string[xList.Count];
+        //    int x = 0;
+        //    foreach (var y in xList)
+        //    {
+        //        lists[x] = xList[x].Substring(0, xList[x].Length - 4);
+        //        x++;
+        //    }
 
-            while (loop)
-            {
-                int item = ValidateChoice.GetNumber(lists.Length, "Delete Item from List", lists);
+        //    while (loop)
+        //    {
+        //        int item = ValidateChoice.GetNumber(lists.Length, "Delete Item from List", lists);
 
-                for (int i = 0; i < lists.Length; i++)
-                {
-                    if (item == i + 1)
-                    {
-                        file_handler.DeleteItem(listDirectory, username, lists[i], lists);
-                        loop = false;
-                        break;
-                    }
-                }
+        //        for (int i = 0; i < lists.Length; i++)
+        //        {
+        //            if (item == i + 1)
+        //            {
+        //                file_handler.DeleteItem(listDirectory, username, lists[i], lists);
+        //                loop = false;
+        //                break;
+        //            }
+        //        }
 
-                if (loop)
-                {
-                    Console.WriteLine("> Item does not exist!");
-                    Console.ReadKey();
-                }
-            }
+        //        if (loop)
+        //        {
+        //            Console.WriteLine("> Item does not exist!");
+        //            Console.ReadKey();
+        //        }
+        //    }
 
-            //var file = new MyFileHandler(username);
-            //string listDirectory = $@"./account_list/{username}/lists";
-            //string[] lists = file.GetAvailableList(listDirectory);
-
-            ////<>>>>>>>>>>>>>>>>>>ITEM IS NOT DELETING
-
-            //bool loop = true;
-            //while (loop)
-            //{
-            //    MenuPrinter.PrintMenu("Delete Item from List",
-            //        lists,
-            //        new string[] { "",
-            //            " Type the name of the list, or type exit: " });
-            //    Console.Write("> ");
-            //    string listName = Console.ReadLine();
-
-            //    if (listName == "exit")
-            //    {
-            //        break;
-            //    }
-
-            //    foreach (var item in lists)
-            //    {
-            //        if (item == listName)
-            //        {
-            //            file_handler.DeleteItem(listDirectory, username, item, lists);
-
-            //            loop = false;
-            //            break;
-            //        }
-            //    }
-
-            //    if (loop)
-            //    {
-            //        Console.WriteLine("\n> You typed a list that does not exist...\n");
-            //        Console.ReadLine();
-            //    }
-            //}
-        }
+        //}
     }
 }
