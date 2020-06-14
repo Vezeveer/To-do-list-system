@@ -52,7 +52,7 @@ namespace To_do_list_system
             return null;
         }
 
-        public string readFile(string path)
+        public string ReadFile(string path)
         {
             FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             byte[] to_read = new byte[file.Length];
@@ -113,7 +113,7 @@ namespace To_do_list_system
             }
         }
 
-        public bool checkDirectory (string path)
+        public bool CheckDirectory (string path)
         {
             try
             {

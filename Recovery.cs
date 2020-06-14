@@ -1,17 +1,14 @@
 using System;
+using System.IO;
 
 namespace To_do_list_system
 {
     public class Recovery
     {
-        string _username;
-        string answer;
-        
-        public void recoveryMode(string username, string the_question)
+        public void RecoveryMode(string username, string the_question)
         {
-            var file_handler = new MyFileHandler(username);
-            string recovery_answer_path = "./account_list/"+_username+"/recovery_answer.txt";
-            string fetched_answer = file_handler.readFile(recovery_answer_path);
+            string recovery_answer_path = "./account_list/"+username+"/recovery_answer.txt";
+            string[] fetched_answer = File.ReadAllLines(recovery_answer_path);
 
             bool answering = true;
 
@@ -21,9 +18,9 @@ namespace To_do_list_system
                 Console.WriteLine(the_question);
 
                 Console.Write("Answer: ");
-                answer = Console.ReadLine();
+                string answer = Console.ReadLine();
 
-                if (answer == fetched_answer)
+                if (answer == fetched_answer[0])
                 {
                     Console.WriteLine("We are resetting your password...\n");
                     Console.ReadLine();
@@ -40,7 +37,7 @@ namespace To_do_list_system
                         if (re_password == new_password)
                         {
                             Register register = new Register();
-                            register.savePassword(_username, new_password);
+                            register.savePassword(username, new_password);
                             register.successEntry();
                             verifying = false;
                             answering = false;
@@ -61,16 +58,16 @@ namespace To_do_list_system
             }
         }
 
-        public bool checkRecoveryInfo(string username)
+        public bool CheckRecoveryInfo(string username)
         {
             var file_handler = new MyFileHandler(username);
             string username_path = "./account_list/"+username;
-            if (file_handler.checkDirectory(username_path))
+            if (file_handler.CheckDirectory(username_path))
             {
                 string recovery_question_path = "./account_list/"+username+"/recovery_question.txt";
-                string fetched_recovery_question = file_handler.readFile(recovery_question_path);
+                string fetched_recovery_question = file_handler.ReadFile(recovery_question_path);
 
-                recoveryMode(username, fetched_recovery_question);
+                RecoveryMode(username, fetched_recovery_question);
 
                 return false;
             }
@@ -82,30 +79,31 @@ namespace To_do_list_system
             }
         }
 
-        public void runRecoveryForm()
+        public void RunRecoveryForm()
         {
             bool loop = true;
             while (loop)
             {
-                _username = ValidateChoice.GetUserName("RECOVERY",
+                string username = ValidateChoice.GetUserName("RECOVERY",
                     new string[] { "",
                         "Type your username.",
                         "Type 'exit' to exit."
                     });
-                Console.Write("Username: ");
-                if (_username == "exit")
+
+                Console.Write(">  ");
+                if (username == "exit")
                 {
                     Environment.Exit(0);
                 }
 
-                if(_username == "")
+                if(username == "")
                 {
                     Console.WriteLine("Invalid Input...");
                     Console.ReadKey();
                 }
                 else
                 {
-                    loop = checkRecoveryInfo(_username);
+                    loop = CheckRecoveryInfo(username);
                 }
             }
         }

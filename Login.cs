@@ -37,7 +37,7 @@ namespace To_do_list_system
                         break;
                     case 3:
                         Recovery recovery = new Recovery();
-                        recovery.runRecoveryForm();
+                        recovery.RunRecoveryForm();
                         break;
                     case 4:
                         Environment.Exit(0);
@@ -58,7 +58,7 @@ namespace To_do_list_system
         {
             MyFileHandler file_handler = new MyFileHandler(_username);
             string username_path = "./account_list/"+_username;
-            if (file_handler.checkDirectory(username_path))
+            if (file_handler.CheckDirectory(username_path))
             {   
                 string password_path = "./account_list/"+_username+"/key.txt";
                 string[] fetched_password = File.ReadAllLines(password_path);

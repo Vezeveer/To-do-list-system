@@ -35,7 +35,6 @@ namespace To_do_list_system
         public string[] ShowList(string username) // for current user show list, or get list
         {
             var file = new MyFileHandler(username);
-            //string[] lists = Directory.GetFiles("./account_list/" + username + "/lists");
             string listDirectory = $@"./account_list/{username}/lists";
             string[] lists = file.GetAvailableList(listDirectory);
 
