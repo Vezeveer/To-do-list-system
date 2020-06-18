@@ -27,7 +27,7 @@ namespace To_do_list_system
                 {
                     case 1:
                         listOptions.ShowList(username);
-                        Console.WriteLine("\nPress any key to continue...");
+                        Console.WriteLine("> Press any key to continue...");
                         Console.ReadLine();
                         Console.Clear();
                         break;

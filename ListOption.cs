@@ -74,7 +74,7 @@ namespace To_do_list_system
             }
             else
             {
-                Console.WriteLine("> No List Exists!");
+                Console.WriteLine("> No List Exists...");
             }
             return null;
         }
@@ -114,63 +114,76 @@ namespace To_do_list_system
             bool loop = true;
             string[] pathLists = Directory.GetFiles("./account_list/" + username + "/lists");
             List<string> xList = new List<string>();
+            string[] currentLists = file_handler.GetAvailableList(listDirectory);
 
-            foreach (var path in pathLists)
+            if (currentLists.Length == 0) //check if any list exists
             {
-                xList.Add(Path.GetFileName(path));
+                Console.WriteLine("> No list exists...");
+                Console.WriteLine("> Press any key to continue...");
+
+                Console.ReadKey();
             }
-
-            string[] lists = new string[xList.Count];
-            int x = 0;
-            foreach (var y in xList)
+            else
             {
-                lists[x] = xList[x].Substring(0, xList[x].Length - 4);
-                x++;
-            }
-
-            string[] textMorph = { "Add item to list", "Delete List", "Delete Item from List" };
-            string textShown = "Error";
-            if (addDeleteUpdate == "add")
-                textShown = textMorph[0];
-            if (addDeleteUpdate == "delete")
-                textShown = textMorph[1];
-            if (addDeleteUpdate == "update")
-                textShown = textMorph[2];
-
-            while (loop)
-            {
-                int item = ValidateChoice.GetNumber(lists.Length, textShown, lists);
-
-                for (int i = 0; i < lists.Length; i++)
+                foreach (var path in pathLists)
                 {
-                    if (item == i + 1)
+                    xList.Add(Path.GetFileName(path));
+                }
+
+                string[] lists = new string[xList.Count];
+                int x = 0;
+                foreach (var y in xList)
+                {
+                    lists[x] = xList[x].Substring(0, xList[x].Length - 4);
+                    x++;
+                }
+
+                string[] textMorph = { "Add item to list", "Delete List", "Delete Item from List" };
+                string textShown = "Error";
+                if (addDeleteUpdate == "add")
+                    textShown = textMorph[0];
+                if (addDeleteUpdate == "delete")
+                    textShown = textMorph[1];
+                if (addDeleteUpdate == "update")
+                    textShown = textMorph[2];
+
+                while (loop)
+                {
+                    int item = ValidateChoice.GetNumber(lists.Length, textShown, lists);
+
+                    for (int i = 0; i < lists.Length; i++)
                     {
-                        if(addDeleteUpdate == "add")
+                        if (item == i + 1)
                         {
-                            inputIntercepter("add", $@"{listDirectory}/{lists[i]}.txt");
-                        }
+                            if (addDeleteUpdate == "add")
+                            {
+                                inputIntercepter("add", $@"{listDirectory}/{lists[i]}.txt");
+                            }
 
-                        if (addDeleteUpdate == "delete")
-                        {
-                            file_handler.DelteFile(listDirectory, username, lists[i], lists);
-                        }
+                            if (addDeleteUpdate == "delete")
+                            {
+                                file_handler.DelteFile(listDirectory, username, lists[i], lists);
+                            }
 
-                        if (addDeleteUpdate == "update")
-                        {
-                            file_handler.DeleteItem(listDirectory, username, lists[i], lists);
-                        }
+                            if (addDeleteUpdate == "update")
+                            {
+                                file_handler.DeleteItem(listDirectory, username, lists[i], lists);
+                            }
 
-                        loop = false;
-                        break;
+                            loop = false;
+                            break;
+                        }
+                    }
+
+                    if (loop)
+                    {
+                        Console.WriteLine("> It does not exist!");
+                        Console.ReadKey();
                     }
                 }
-
-                if (loop)
-                {
-                    Console.WriteLine("> It does not exist!");
-                    Console.ReadKey();
-                }
             }
+
+                
         }
 
         public bool ifDuplicating(string path)
